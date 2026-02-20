@@ -1,0 +1,110 @@
+<div class="p-4 flex flex-col gap-4">
+
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold text-surface-800">Users</h1>
+            <p class="text-surface-400 text-sm mt-1">Manage system users</p>
+        </div>
+        <p-button label="New User" icon="pi pi-plus" />
+    </div>
+
+    <!-- Search & Filters -->
+    <p-card class="shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="flex-1">
+                <p-iconfield class="w-full">
+                    <p-inputicon class="pi pi-search" />
+                    <input
+                        pInputText
+                        type="text"
+                        placeholder="Search by name, email or role..."
+                        class="w-full"
+                        [(ngModel)]="searchTerm"
+                        (input)="onSearch()"
+                    />
+                </p-iconfield>
+            </div>
+            <p-select
+                [options]="roleOptions"
+                [(ngModel)]="selectedRole"
+                placeholder="All Roles"
+                (onChange)="onSearch()"
+                [showClear]="true"
+            />
+            <p-select
+                [options]="statusOptions"
+                [(ngModel)]="selectedStatus"
+                placeholder="All Statuses"
+                (onChange)="onSearch()"
+                [showClear]="true"
+            />
+        </div>
+    </p-card>
+
+    <!-- Table -->
+    <p-card class="shadow-sm">
+        <p-table
+            [value]="filteredUsers"
+            [paginator]="true"
+            [rows]="10"
+            [rowsPerPageOptions]="[10, 15, 25]"
+            class="p-datatable-sm"
+            [rowHover]="true"
+        >
+            <ng-template #header>
+                <tr>
+                    <th scope="col" pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                    <th scope="col" pSortableColumn="email">Email <p-sortIcon field="email" /></th>
+                    <th scope="col" pSortableColumn="role">Role <p-sortIcon field="role" /></th>
+                    <th scope="col" pSortableColumn="createdAt">Created <p-sortIcon field="createdAt" /></th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </ng-template>
+
+            <ng-template #body let-user>
+                <tr>
+                    <td>
+                        <div class="flex items-center gap-3">
+                            <p-avatar
+                                [label]="user.initials"
+                                class="text-white font-semibold"
+                                [style]="{ background: user.avatarColor }"
+                                shape="circle"
+                            />
+                            <span class="font-medium">{{ user.name }}</span>
+                        </div>
+                    </td>
+                    <td class="text-surface-500">{{ user.email }}</td>
+                    <td>
+                        <p-tag [value]="user.role" [severity]="user.roleSeverity" />
+                    </td>
+                    <td class="text-surface-500 text-sm">{{ user.createdAt }}</td>
+                    <td>
+                        <p-tag
+                            [value]="user.active ? 'Active' : 'Inactive'"
+                            [severity]="user.active ? 'success' : 'danger'"
+                        />
+                    </td>
+                    <td>
+                        <div class="flex gap-2">
+                            <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" pTooltip="Edit" />
+                            <p-button icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" pTooltip="Delete" />
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template #emptymessage>
+                <tr>
+                    <td colspan="6" class="text-center py-10 text-surface-400">
+                        <i class="pi pi-users text-4xl block mb-2"></i>
+                        No users found
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+
+</div>

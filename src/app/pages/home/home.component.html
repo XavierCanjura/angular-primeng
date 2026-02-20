@@ -1,0 +1,61 @@
+<div class="p-4 flex flex-col gap-4">
+
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+        @for (kpi of kpis; track kpi.label) {
+        <p-card class="shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-surface-500 text-sm mb-1">{{ kpi.label }}</p>
+                    <p class="text-3xl font-bold text-surface-800">{{ kpi.value }}</p>
+                    <p class="text-sm mt-1" [ngClass]="kpi.trend > 0 ? 'text-green-500' : 'text-red-500'">
+                        <i [class]="kpi.trend > 0 ? 'pi pi-arrow-up' : 'pi pi-arrow-down'"></i>
+                        {{ kpi.trend > 0 ? '+' : '' }}{{ kpi.trend }}% vs last month
+                    </p>
+                </div>
+                <div class="w-12 h-12 rounded-full flex items-center justify-center" [ngClass]="kpi.bgClass">
+                    <i [class]="kpi.icon + ' text-xl text-white'"></i>
+                </div>
+            </div>
+        </p-card>
+        }
+    </div>
+
+    <!-- Activity + Table -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+
+        <!-- Orders Table -->
+        <div class="xl:col-span-3">
+            <p-card header="Últimos pedidos" class="shadow-sm">
+                <p-table 
+                    [value]="orders" 
+                    [paginator]="true"
+                    [rowsPerPageOptions]="[5, 10, 25, 50]"
+                    [showFirstLastIcon]="false"
+                    [rows]="10" 
+                    class="p-datatable-sm">
+                    <ng-template #header>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-order>
+                        <tr>
+                            <td class="text-surface-500 text-sm">#{{ order.id }}</td>
+                            <td>{{ order.client }}</td>
+                            <td>{{ order.product }}</td>
+                            <td class="font-semibold">${{ order.total }}</td>
+                            <td>
+                                <p-tag [value]="order.status" [severity]="order.severity"></p-tag>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-card>
+        </div>
+    </div>
+</div>
