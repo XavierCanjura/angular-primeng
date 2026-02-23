@@ -1,16 +1,16 @@
 <div class="p-4 flex flex-col gap-4">
 
-    <!-- Header -->
-    <div class="flex items-center justify-between">
-        <div>
-            <h1 class="text-3xl font-bold text-surface-800">Products</h1>
-            <p class="text-surface-400 text-sm mt-1">Manage the product catalog</p>
-        </div>
-        <p-button label="New Product" icon="pi pi-plus" />
-    </div>
-
+    
     <!-- Search & Filters -->
-    <p-card class="shadow-sm">
+    <p-card class="shadow-sm bg-surface-0!">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h1 class="text-3xl font-bold text-surface-800">Products</h1>
+                <p class="text-surface-400 text-sm mt-1">Manage the product catalog</p>
+            </div>
+            <p-button label="New Product" icon="pi pi-plus" />
+        </div>
         <div class="flex items-center gap-3">
             <div class="flex-1">
                 <p-iconfield class="w-full">
@@ -43,7 +43,7 @@
     </p-card>
 
     <!-- Table -->
-    <p-card class="shadow-sm">
+    <p-card class="shadow-sm bg-surface-0!">
         <p-table
             [value]="filteredProducts"
             [paginator]="true"

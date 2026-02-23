@@ -3,7 +3,7 @@
     <!-- KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         @for (kpi of kpis; track kpi.label) {
-        <p-card class="shadow-sm">
+        <p-card class="shadow-sm bg-surface-0!">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-surface-500 text-sm mb-1">{{ kpi.label }}</p>
@@ -26,14 +26,9 @@
 
         <!-- Orders Table -->
         <div class="xl:col-span-3">
-            <p-card header="Últimos pedidos" class="shadow-sm">
-                <p-table 
-                    [value]="orders" 
-                    [paginator]="true"
-                    [rowsPerPageOptions]="[5, 10, 25, 50]"
-                    [showFirstLastIcon]="false"
-                    [rows]="10" 
-                    class="p-datatable-sm">
+            <p-card header="Últimos pedidos" class="shadow-sm bg-surface-0!">
+                <p-table [value]="orders" [paginator]="true" [rowsPerPageOptions]="[5, 10, 25, 50]"
+                    [showFirstLastIcon]="false" [rows]="10" class="p-datatable-sm">
                     <ng-template #header>
                         <tr>
                             <th scope="col">ID</th>
@@ -50,7 +45,7 @@
                             <td>{{ order.product }}</td>
                             <td class="font-semibold">${{ order.total }}</td>
                             <td>
-                                <p-tag [value]="order.status" [severity]="order.severity"></p-tag>
+                                <p-tag [value]="order.status" [severity]="order.severity" ></p-tag>
                             </td>
                         </tr>
                     </ng-template>
